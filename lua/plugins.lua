@@ -12,7 +12,7 @@ H = require 'helpers'
 
 local M = {}
 
-function M.setup(is_vscode, have_nerd_font)
+function M.setup(is_vscode, have_copilot, have_nerd_font)
   local pluginList = {
     require 'plugins.vim-sleuth',
     H.if_condition_require(not is_vscode, 'plugins.lualine'),
@@ -27,6 +27,8 @@ function M.setup(is_vscode, have_nerd_font)
     H.if_condition_require(not is_vscode, 'plugins.dashboard-nvim'),
     H.if_condition_require(not is_vscode, 'plugins.neogit'),
     H.if_condition_require(not is_vscode, 'lsp'),
+    H.if_condition_require(not is_vscode and have_copilot, 'plugins.copilot'),
+    H.if_condition_require(not is_vscode and have_copilot, 'plugins.copilot-chat'),
 
     -- require 'plugins.debug',
     -- require 'plugins.indent_line',
