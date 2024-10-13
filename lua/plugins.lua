@@ -8,47 +8,53 @@
 --  To update plugins you can run
 --    :Lazy update
 --
--- NOTE: Here is where you install your plugins.
+H = require 'helpers'
 
-local pluginList = {
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
-  require 'plugins.lualine',
-  require 'plugins.gitsigns',
-  require 'plugins.telescope',
-  require 'plugins.which-key',
-  require 'plugins.nvim-treesitter',
-  require 'plugins.nvim-surround',
-  require 'plugins.plenary',
-  require 'plugins.neo-tree',
-  require 'plugins.catpuccin',
-  require 'plugins.dashboard-nvim',
-  require 'plugins.neogit',
-  (vim.g.vscode and {} or require 'lsp'),
+local M = {}
 
-  -- require 'plugins.debug',
-  -- require 'plugins.indent_line',
-  -- require 'plugins.lint',
-  -- require 'plugins.autopairs',
-}
+function M.setup(is_vscode, have_nerd_font)
+  local pluginList = {
+    require 'plugins.vim-sleuth',
+    H.if_condition_require(not is_vscode, 'plugins.lualine'),
+    H.if_condition_require(not is_vscode, 'plugins.gitsigns'),
+    H.if_condition_require(not is_vscode, 'plugins.telescope'),
+    H.if_condition_require(not is_vscode, 'plugins.which-key'),
+    require 'plugins.nvim-treesitter',
+    require 'plugins.nvim-surround',
+    require 'plugins.plenary',
+    H.if_condition_require(not is_vscode, 'plugins.neo-tree'),
+    H.if_condition_require(not is_vscode, 'plugins.catpuccin'),
+    H.if_condition_require(not is_vscode, 'plugins.dashboard-nvim'),
+    H.if_condition_require(not is_vscode, 'plugins.neogit'),
+    H.if_condition_require(not is_vscode, 'lsp'),
 
-local uiMap = {
-  -- If you are using a Nerd Font: set icons to an empty table which will use the
-  -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
-  icons = vim.g.have_nerd_font and {} or {
-    cmd = '⌘',
-    config = '🛠',
-    event = '📅',
-    ft = '📂',
-    init = '⚙',
-    keys = '🗝',
-    plugin = '🔌',
-    runtime = '💻',
-    require = '🌙',
-    source = '📄',
-    start = '🚀',
-    task = '📌',
-    lazy = '💤 ',
-  },
-}
+    -- require 'plugins.debug',
+    -- require 'plugins.indent_line',
+    -- require 'plugins.lint',
+    -- require 'plugins.autopairs',
+  }
 
-require('lazy').setup(pluginList, { ui = uiMap })
+  local uiMap = {
+    -- If you are using a Nerd Font: set icons to an empty table which will use the
+    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    icons = have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '🛠',
+      event = '📅',
+      ft = '📂',
+      init = '⚙',
+      keys = '🗝',
+      plugin = '🔌',
+      runtime = '💻',
+      require = '🌙',
+      source = '📄',
+      start = '🚀',
+      task = '📌',
+      lazy = '💤 ',
+    },
+  }
+
+  return require('lazy').setup(pluginList, { ui = uiMap })
+end
+
+return M

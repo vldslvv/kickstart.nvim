@@ -1,4 +1,4 @@
-return {
+local treesitter = {
 
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -18,6 +18,20 @@ return {
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
+    -- TODO: doesn't work, set some keymaps
+    -- config = function()
+    --   require('nvim-treesitter.configs').setup {
+    --     highlight = {
+    --       enable = true,
+    --       -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    --       -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    --       -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    --       -- Instead of true it can also be a list of languages
+    --       additional_vim_regex_highlighting = false,
+    --     },
+    --   }
+    -- end,
+
     -- There are additional nvim-treesitter modules that you can use to interact
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
@@ -26,3 +40,5 @@ return {
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
 }
+
+return treesitter
