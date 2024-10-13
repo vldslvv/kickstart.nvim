@@ -1,3 +1,5 @@
+-- TODO: make conditions based on having neovide and vscode
+
 require 'options'
 require 'keymaps'
 require 'autocommands'
@@ -6,6 +8,7 @@ require 'autocommands'
 require 'neovide'
 
 -- Apply plugins as last stage
+
 require 'plugins'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
