@@ -9,10 +9,11 @@
 --    :Lazy update
 --
 H = require 'helpers'
+C = require 'plugins.copilot-aio'
 
 local M = {}
 
-function M.setup(is_vscode, have_copilot, have_nerd_font)
+function M.setup(is_vscode, have_copilot, use_github_copilot_plugin, have_nerd_font)
   local pluginList = {
     require 'plugins.vim-sleuth',
     H.if_condition_require(not is_vscode, 'plugins.lualine'),
@@ -27,8 +28,11 @@ function M.setup(is_vscode, have_copilot, have_nerd_font)
     H.if_condition_require(not is_vscode, 'plugins.dashboard-nvim'),
     H.if_condition_require(not is_vscode, 'plugins.neogit'),
     H.if_condition_require(not is_vscode, 'lsp'),
-    H.if_condition_require(not is_vscode and have_copilot, 'plugins.copilot'),
-    H.if_condition_require(not is_vscode and have_copilot, 'plugins.copilot-chat'),
+    (not is_vscode and have_copilot and C.setup_copilot(use_github_copilot_plugin)) or {},
+    (not is_vscode and have_copilot and C.setup_copilot_chat(use_github_copilot_plugin)) or {},
+    -- H.if_condition_require(not is_vscode and have_copilot and use_github_copilot_plugin, 'plugins.copilot-github'),
+    -- H.if_condition_require(not is_vscode and have_copilot and not use_github_copilot_plugin, 'plugins.copilot-custom'),
+    -- H.if_condition_require(not is_vscode and have_copilot, 'plugins.copilot-chat'),
 
     -- require 'plugins.debug',
     -- require 'plugins.indent_line',

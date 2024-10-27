@@ -3,7 +3,9 @@ H = require 'helpers'
 -- Define custom vars
 
 -- Set true if have copilot license
-local have_copilot = false
+local have_copilot = true
+-- Use standard github/copilot plugin or zbirenbaum/copilot plugin
+local use_github_copilot_plugin = true
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 local have_nerd_font = true
@@ -20,7 +22,7 @@ H.if_condition_require(vim.g.neovide, 'custom-neovide')
 
 -- Apply plugins as last stage
 local plugins = require 'plugins'
-plugins.setup(vim.g.vscode, have_copilot, have_nerd_font)
+plugins.setup(vim.g.vscode, have_copilot, use_github_copilot_plugin, have_nerd_font)
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
